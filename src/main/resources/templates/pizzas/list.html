@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}" defer></script>
+    <title>Pizza List</title>
+</head>
+<body>
+<h1>CIAO SONO LA PIZZA</h1>
+
+<ul th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}">
+    <li th:text="${pizza.name}"></li>
+    <li th:text="${pizza.description}"></li>
+    <li th:text="${pizza.price}"></li>
+</ul>
+<h3 th:if="${pizzaList == null}" th:text="'Non ci sono risultati da mostrare'"></h3>
+
+</body>
+</html>
