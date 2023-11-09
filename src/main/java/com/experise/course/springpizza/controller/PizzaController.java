@@ -20,7 +20,7 @@ public class PizzaController {
     @GetMapping
     public String index(Model model) {
         List<Pizza> pizzaList = pizzaRepository.findAll();
-        model.addAttribute("pizzaList", pizzaList);
+        model.addAttribute("pizzaList", null);
         return "pizzas/list";
     }
 }

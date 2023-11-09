@@ -2,10 +2,14 @@ body{
 background-color: #222222;
 }
 
+h1{
+color:red;
+}
 .card-text {
     height: 150px;
 }
 
-h1{
-color:red;
+.logo{
+width:40px;
 }
+

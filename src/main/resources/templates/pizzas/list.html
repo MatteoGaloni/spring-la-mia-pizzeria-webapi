@@ -7,9 +7,9 @@
 </header>
 <main>
     <div class="container">
-        <h1>CIAO SONO LA PIZZA</h1>
+        <h1 class="text-center py-2">CIAO SONO PIZZA-SHOP</h1>
         <div class="row">
-            <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}" class="col-md-4 col-sm-6">
+            <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}" class="my-2 col-md-4 col-sm-6">
                 <div class="card" style="width: 18rem;">
                     <img th:src="${pizza.img}" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -18,7 +18,7 @@
                             title and make up the bulk of the card's content.</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li th:text="${pizza.price}" class="list-group-item">An item</li>
+                        <li th:text="${pizza.price} + '€'" class="list-group-item">An item</li>
                     </ul>
                     <div class="card-body">
                         <a href="#" class="card-link">Card link</a>
