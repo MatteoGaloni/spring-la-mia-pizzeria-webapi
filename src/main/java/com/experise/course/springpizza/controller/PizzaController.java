@@ -3,12 +3,18 @@ package com.experise.course.springpizza.controller;
 import com.experise.course.springpizza.model.Pizza;
 import com.experise.course.springpizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -18,9 +24,45 @@ public class PizzaController {
     private PizzaRepository pizzaRepository;
 
     @GetMapping
-    public String index(Model model) {
-        List<Pizza> pizzaList = pizzaRepository.findAll();
-        model.addAttribute("pizzaList", null);
+    public String index(@RequestParam(value = "search", required = false) String search, Model model) {
+        List<Pizza> pizzaList;
+        if (search != null && !search.isBlank()) {
+            pizzaList = pizzaRepository.findByNameContainsAllIgnoreCase(search);
+        } else {
+            pizzaList = pizzaRepository.findAll();
+        }
+        model.addAttribute("pizzaList", pizzaList);
         return "pizzas/list";
+    }
+
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable Integer id, Model model) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("pizza", result.get());
+            return "pizzas/show";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/advancedSearch")
+    public String advancedSearch(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "price", required = false) BigDecimal price,
+            Model model) {
+        List<Pizza> pizzaList;
+
+        if (name != null && name.isBlank()) {
+            name = null;
+        }
+        if (description != null && description.isBlank()) {
+            description = null;
+        }
+        pizzaList = pizzaRepository.findByNameContainsOrDescriptionContainsOrPriceLessThan(name, description, price);
+        model.addAttribute("pizzaList", pizzaList);
+        return "pizzas/advancedSearch";
     }
 }

@@ -1,21 +1,31 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/resources :: headResources('Pizza List')"></head>
+<head th:insert="fragments/resources :: headResources('Advanced Search')"></head>
 <body>
 <header>
     <nav th:insert="fragments/resources :: navbar"></nav>
 </header>
 <main>
     <div class="container">
-        <h1 class="text-center py-2">CIAO SONO PIZZA-SHOP</h1>
+        <h1 class="text-center py-2">CIAO SONO ADVANCED_SEARCH PIZZA-SHOP</h1>
         <hr>
-        <form th:action="@{/pizzas}" method="GET">
+        <form th:action="@{/pizzas/advancedSearch}" method="GET">
             <div class="input-group">
                 <input class="form-control"
                        type="text"
-                       name="search"
-                       th:value="${param.search}"
-                       placeholder="Cerca la tua pizza">
+                       name="name"
+                       th:value="${param.name}"
+                       placeholder="Inserisci il nome della pizza">
+                <input class="form-control"
+                       type="text"
+                       name="description"
+                       th:value="${param.description}"
+                       placeholder="Inserisci un ingrediente">
+                <input class="form-control"
+                       type="number"
+                       name="price"
+                       th:value="${param.price}"
+                       placeholder="inserisci il prezzo massimo">
                 <button type="submit" class="btn btn-primary">Cerca</button>
             </div>
         </form>

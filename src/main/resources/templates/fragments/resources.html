@@ -14,7 +14,7 @@
 
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">
+        <a class="navbar-brand" th:href="@{/pizzas}">
             <img class="logo"
                  th:src="'https://img.freepik.com/premium-vector/pizza-logo-template-suitable-restaurant-cafe-logo_607277-267.jpg'"
                  alt="pizza-logo">
@@ -25,11 +25,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/pizzas}">Home</a>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/pizzas}">Pizzas</a>
                 </li>
-                <li th:href="@{/pizzas}" class="nav-item ">
-                    <a class="nav-link" href="#">Pizzas</a>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/pizzas/advancedSearch}">Ricerca avanzata</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
