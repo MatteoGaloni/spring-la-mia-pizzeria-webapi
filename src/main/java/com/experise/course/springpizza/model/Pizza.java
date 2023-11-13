@@ -1,6 +1,12 @@
 package com.experise.course.springpizza.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,11 +18,22 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
+    @NotBlank(message = "Il nome non può essere vuoto")
+    @Size(max = 20, message = "La lunghezza massima consentita è di 10 caratteri")
     private String name;
+    @NotBlank(message = "La descrizione non può essere vuota")
+    @Size(max = 255, message = "La lunghezza massima consentita è di 255 caratteri")
     private String description;
+
+    @URL
     private String img;
+
+    @DecimalMax(value = "30.00", message = "Il prezzo non può superare i 30€")
+    @DecimalMin(value = "0.01", message = "Il prezzo deve essere maggiore di 0")
     private BigDecimal price;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     //    *******************************************************+

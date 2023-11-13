@@ -16,12 +16,20 @@
                     title and make up the bulk of the card's content.</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li th:text="${pizza.price} + '€'" class="list-group-item">An item</li>
+                <li th:if="${pizza.price != null}" th:text="${pizza.price} + '€'" class="list-group-item">An
+                    item
+                </li>
+                <li th:if="${pizza.price == null}" th:text="'Prezzo non disponibile'" class="list-group-item">An
+                    item
+                </li>
             </ul>
             <div class="card-body">
                 <a th:href="@{/pizzas}" class="card-link">Back Home</a>
             </div>
+            <!--            <a th:href="@{/delete/{id}(id=${pizza.id})}">Delete</a>-->
         </div>
+
+
     </div>
 </main>
 </body>

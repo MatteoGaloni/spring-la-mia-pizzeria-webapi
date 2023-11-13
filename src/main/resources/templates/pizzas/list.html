@@ -23,13 +23,19 @@
             <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}" class="my-2 col-md-4 col-sm-6">
                 <div class="card" style="width: 18rem;">
                     <img th:src="${pizza.img}" class="card-img-top" alt="...">
+                    
                     <div class="card-body">
                         <h5 th:text="${pizza.name}" class="card-title"></h5>
                         <p th:text="${pizza.description}" class="card-text">Some quick example text to build on the card
                             title and make up the bulk of the card's content.</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li th:text="${pizza.price} + '€'" class="list-group-item">An item</li>
+                        <li th:if="${pizza.price != null}" th:text="${pizza.price} + '€'" class="list-group-item">An
+                            item
+                        </li>
+                        <li th:if="${pizza.price == null}" th:text="'Prezzo non disponibile'" class="list-group-item">An
+                            item
+                        </li>
                     </ul>
                     <div class="card-body">
                         <a th:href="@{pizzas/show/{id}(id=${pizza.id})}" class="card-link">Card link</a>

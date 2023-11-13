@@ -2,10 +2,12 @@ package com.experise.course.springpizza.controller;
 
 import com.experise.course.springpizza.model.Pizza;
 import com.experise.course.springpizza.repository.PizzaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -70,8 +72,23 @@ public class PizzaController {
     }
 
     @PostMapping("/store")
-    public String store(@ModelAttribute("pizza") Pizza formPizza) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "pizzas/create";
+        }
+        if (formPizza.getImg().isBlank()) {
+            formPizza.setImg("https://www.emme2servizi.it/wp-content/uploads/2020/12/no-image.jpg");
+        }
         pizzaRepository.save(formPizza);
         return "redirect:/pizzas";
     }
+
+
+//    @GetMapping("/delete/{id}")
+//    public String deletePizza(@PathVariable("id") Integer id, Model model) {
+//        Pizza pizza = pizzaRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//        pizzaRepository.delete(pizza);
+//        return "redirect:/pizzas";
+//    }
 }
