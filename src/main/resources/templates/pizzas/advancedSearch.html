@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/resources :: headResources('Advanced Search')"></head>
+<head th:insert="~{fragments/resources :: headResources('Advanced Search')}"></head>
 <body>
 <header>
-    <nav th:insert="fragments/resources :: navbar"></nav>
+    <nav th:insert="~{fragments/resources :: navbar}"></nav>
 </header>
 <main>
     <div class="container">

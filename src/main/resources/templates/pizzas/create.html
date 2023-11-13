@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/resources :: headResources('Create')}"></head>
+<body>
+<header>
+    <nav th:insert="~{fragments/resources :: navbar}"></nav>
+</header>
+<main>
+    <div class="container">
+        <h1 class="text-center py-2">Inserisci una nuova Pizza</h1>
+        <form id="pizza-store" class="text-white" th:action="@{/pizzas/store}" th:object="${pizza}" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Descrizione</label>
+                <textarea class="form-control" th:field="*{description}" id="description">
+                </textarea>
+            </div>
+            <div class="mb-3">
+                <label for="img" class="form-label">URL</label>
+                <input type="text" class="form-control" th:field="*{img}" description id="img">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Prezzo</label>
+                <input type="number" class="form-control" th:field="*{price}" id="price">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Salva Nuova Pizza</button>
+                <button class="btn btn-danger" type="reset">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</main>
+</body>
+</html>
