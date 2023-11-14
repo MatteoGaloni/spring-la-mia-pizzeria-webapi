@@ -23,7 +23,7 @@
             <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}" class="my-2 col-md-4 col-sm-6">
                 <div class="card" style="width: 18rem;">
                     <img th:src="${pizza.img}" class="card-img-top" alt="...">
-                    
+
                     <div class="card-body">
                         <h5 th:text="${pizza.name}" class="card-title"></h5>
                         <p th:text="${pizza.description}" class="card-text">Some quick example text to build on the card
@@ -38,8 +38,13 @@
                         </li>
                     </ul>
                     <div class="card-body">
-                        <a th:href="@{pizzas/show/{id}(id=${pizza.id})}" class="card-link">Card link</a>
+                        <a th:href="@{pizzas/show/{id}(id=${pizza.id})}" class="card-link">Dettagli</a>
+                        <a th:href="@{pizzas/edit/{id}(id=${pizza.id})}" class="card-link">Modifica</a>
                     </div>
+                    <form method="POST" th:action="@{/pizzas/delete/{id}(id=${pizza.id})}"
+                          onsubmit="return confirm('Sei sicuro?')">
+                        <button type="submit" class="btn btn-primary">Cancella Pizza</button>
+                    </form>
                 </div>
             </div>
         </div>

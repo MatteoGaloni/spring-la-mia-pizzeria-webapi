@@ -20,7 +20,7 @@ public class Pizza {
 
 
     @NotBlank(message = "Il nome non può essere vuoto")
-    @Size(max = 20, message = "La lunghezza massima consentita è di 10 caratteri")
+    @Size(max = 30, message = "La lunghezza massima consentita è di 30 caratteri")
     private String name;
     @NotBlank(message = "La descrizione non può essere vuota")
     @Size(max = 255, message = "La lunghezza massima consentita è di 255 caratteri")

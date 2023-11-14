@@ -2,6 +2,7 @@ package com.experise.course.springpizza.controller;
 
 import com.experise.course.springpizza.model.Pizza;
 import com.experise.course.springpizza.repository.PizzaRepository;
+import com.experise.course.springpizza.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
 
+    @Autowired
+    private PizzaService pizzaService;
+
     @GetMapping
     public String index(@RequestParam(value = "search", required = false) String search, Model model) {
         List<Pizza> pizzaList;
@@ -36,11 +40,11 @@ public class PizzaController {
 
     @GetMapping("/show/{id}")
     public String show(@PathVariable Integer id, Model model) {
-        Optional<Pizza> result = pizzaRepository.findById(id);
-        if (result.isPresent()) {
-            model.addAttribute("pizza", result.get());
+        try {
+            Pizza pizza = pizzaService.getPizzaById(id);
+            model.addAttribute("pizza", pizza);
             return "pizzas/show";
-        } else {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
@@ -83,12 +87,40 @@ public class PizzaController {
         return "redirect:/pizzas";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("pizza", result.get());
+            return "pizzas/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
 
-//    @GetMapping("/delete/{id}")
-//    public String deletePizza(@PathVariable("id") Integer id, Model model) {
-//        Pizza pizza = pizzaRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//        pizzaRepository.delete(pizza);
-//        return "redirect:/pizzas";
-//    }
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "pizzas/edit";
+        }
+        if (formPizza.getImg().isBlank()) {
+            formPizza.setImg("https://www.emme2servizi.it/wp-content/uploads/2020/12/no-image.jpg");
+        }
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            formPizza.setCreatedAt(result.get().getCreatedAt());
+            pizzaRepository.save(formPizza);
+            return "redirect:/pizzas/show/" + formPizza.getId();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Pizza pizza = pizzaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        pizzaRepository.delete(pizza);
+        return "redirect:/pizzas";
+    }
 }
