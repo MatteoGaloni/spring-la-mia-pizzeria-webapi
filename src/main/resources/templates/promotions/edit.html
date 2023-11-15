@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/resources :: headResources('Edit')}"></head>
+<body>
+<header>
+    <nav th:insert="~{fragments/resources :: navbar}"></nav>
+</header>
+<main>
+    <div class="container">
+        <h1 class="text-center py-2">Inserisci una nuova Promozione</h1>
+        <form id="promotion-update" class="text-white" th:action="@{/promotions/update/{id}(id=${promotion.id})}"
+              th:object="${promotion}"
+              method="POST">
+            <input type="hidden" th:field="*{pizza}">
+            <div class="mb-3">
+                <label for="title" class="form-label">Nome</label>
+                <input type="text" class="form-control" th:field="*{title}" th:errorClass="is-invalid" id="title">
+                <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="startDate" class="form-label">Descrizione</label>
+                <input type="date" class="form-control" th:field="*{startDate}" th:errorClass="is-invalid"
+                       id="startDate">
+
+                <div th:if="${#fields.hasErrors('startDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('startDate')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="endDate" class="form-label">URL</label>
+                <input type="date" class="form-control" th:field="*{endDate}" th:errorClass="is-invalid" id="endDate">
+                <div th:if="${#fields.hasErrors('endDate')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="error : ${#fields.errors('endDate')}" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Modifica Promozione</button>
+                <button class="btn btn-danger" type="reset">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</main>
+</body>
+</html>

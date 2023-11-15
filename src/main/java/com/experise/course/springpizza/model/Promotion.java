@@ -17,12 +17,9 @@ public class Promotion {
     @NotNull
     @NotBlank
     private String title;
-
-
-    //    wick side
     @ManyToOne
     private Pizza pizza;
-    
+
 
 //    **********************************************
 

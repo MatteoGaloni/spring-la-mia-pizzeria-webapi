@@ -36,6 +36,7 @@
                         <th>Nome</th>
                         <th>Data di inizio</th>
                         <th>Data di fine</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,9 +44,13 @@
                         <td th:text="*{title}"></td>
                         <td th:text="*{startDate}"></td>
                         <td th:text="*{endDate}"></td>
+                        <td><a th:href="@{/promotions/edit/{id}(id=*{id})}">Modifica</a></td>
                     </tr>
                     </tbody>
                 </table>
+                <a th:href="@{/promotions/create(pizzaId=${pizza.id})}" class="btn btn-primary">Aggiungi una nuova
+                    offerta
+                </a>
             </div>
         </div>
     </div>
