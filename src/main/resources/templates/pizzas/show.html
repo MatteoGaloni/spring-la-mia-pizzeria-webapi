@@ -5,7 +5,7 @@
 <header>
     <nav th:insert="fragments/resources :: navbar"></nav>
 </header>
-<main>
+<main class="text-white">
     <div class="container">
         <h1>Sono la show</h1>
         <div class="row">
@@ -29,28 +29,36 @@
                 </div>
             </div>
             <div class="col-6">
-                <h2 class="text-white">Lista Offerte Speciali</h2>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Data di inizio</th>
-                        <th>Data di fine</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="promotion: ${pizza.promotions}" th:object="${promotion}">
-                        <td th:text="*{title}"></td>
-                        <td th:text="*{startDate}"></td>
-                        <td th:text="*{endDate}"></td>
-                        <td><a th:href="@{/promotions/edit/{id}(id=*{id})}">Modifica</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <a th:href="@{/promotions/create(pizzaId=${pizza.id})}" class="btn btn-primary">Aggiungi una nuova
-                    offerta
-                </a>
+                <div id="ingredients_container">
+                    <h2>Ingredienti</h2>
+                    <ul>
+                        <li th:each="ingredient : ${pizza.ingredients}" th:text="${ingredient.name}"></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-white">Lista Offerte Speciali</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data di inizio</th>
+                            <th>Data di fine</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="promotion: ${pizza.promotions}" th:object="${promotion}">
+                            <td th:text="*{title}"></td>
+                            <td th:text="*{startDate}"></td>
+                            <td th:text="*{endDate}"></td>
+                            <td><a th:href="@{/promotions/edit/{id}(id=*{id})}">Modifica</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a th:href="@{/promotions/create(pizzaId=${pizza.id})}" class="btn btn-primary">Aggiungi una nuova
+                        offerta
+                    </a>
+                </div>
             </div>
         </div>
     </div>

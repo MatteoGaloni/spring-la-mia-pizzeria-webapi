@@ -20,7 +20,6 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @NotBlank(message = "Il nome non può essere vuoto")
     @Size(max = 30, message = "La lunghezza massima consentita è di 30 caratteri")
     private String name;
@@ -41,8 +40,18 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     private List<Promotion> promotions = new ArrayList<>();
 
-
+    @ManyToMany
+    private List<Ingredient> ingredients;
     //    *******************************************************+
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public List<Promotion> getPromotions() {
         return promotions;
     }

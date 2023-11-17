@@ -1,6 +1,7 @@
 package com.experise.course.springpizza.controller;
 
 import com.experise.course.springpizza.model.Pizza;
+import com.experise.course.springpizza.repository.IngredientRepository;
 import com.experise.course.springpizza.repository.PizzaRepository;
 import com.experise.course.springpizza.service.PizzaService;
 import jakarta.validation.Valid;
@@ -22,19 +23,15 @@ public class PizzaController {
 
     @Autowired
     private PizzaRepository pizzaRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     @Autowired
     private PizzaService pizzaService;
 
     @GetMapping
     public String index(@RequestParam(value = "search", required = false) String search, Model model) {
-        List<Pizza> pizzaList;
-        if (search != null && !search.isBlank()) {
-            pizzaList = pizzaRepository.findByNameContainsAllIgnoreCase(search);
-        } else {
-            pizzaList = pizzaRepository.findAll();
-        }
-        model.addAttribute("pizzaList", pizzaList);
+        model.addAttribute("pizzaList", pizzaService.getPizzaList(search));
         return "pizzas/list";
     }
 
@@ -71,13 +68,15 @@ public class PizzaController {
 
     @GetMapping("/create")
     public String create(Model model) {
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pizza", new Pizza());
         return "pizzas/create";
     }
 
     @PostMapping("/store")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepository.findAll());
             return "pizzas/create";
         }
         if (formPizza.getImg().isBlank()) {
