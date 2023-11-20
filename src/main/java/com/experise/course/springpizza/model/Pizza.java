@@ -37,11 +37,11 @@ public class Pizza {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "pizza")
+    @OneToMany(mappedBy = "pizza", orphanRemoval = true)
     private List<Promotion> promotions = new ArrayList<>();
 
     @ManyToMany
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
     //    *******************************************************+
 
     public List<Ingredient> getIngredients() {

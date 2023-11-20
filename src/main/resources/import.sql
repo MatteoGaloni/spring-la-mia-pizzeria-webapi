@@ -18,8 +18,20 @@ INSERT INTO ingredients(name)VALUES("pomodoro")
 INSERT INTO ingredients(name)VALUES("mozzarella")
 INSERT INTO ingredients(name)VALUES("funghi")
 INSERT INTO ingredients(name)VALUES("salsiccia")
-INSERT INTO pizzas_ingredients(pizza_id, ingredients_id)VALUES(1,1)
-INSERT INTO pizzas_ingredients(pizza_id, ingredients_id)VALUES(1,2)
-INSERT INTO pizzas_ingredients(pizza_id, ingredients_id)VALUES(2,1)
-INSERT INTO pizzas_ingredients(pizza_id, ingredients_id)VALUES(2,2)
-INSERT INTO pizzas_ingredients(pizza_id, ingredients_id)VALUES(2,3)
+INSERT INTO pizzas_ingredients(pizzas_id, ingredients_id)VALUES(1,1)
+INSERT INTO pizzas_ingredients(pizzas_id, ingredients_id)VALUES(1,2)
+INSERT INTO pizzas_ingredients(pizzas_id, ingredients_id)VALUES(2,1)
+INSERT INTO pizzas_ingredients(pizzas_id, ingredients_id)VALUES(2,2)
+INSERT INTO pizzas_ingredients(pizzas_id, ingredients_id)VALUES(2,3)
+
+INSERT INTO roles (id, name) VALUES(1, 'ADMIN');
+INSERT INTO roles (id, name) VALUES(2, 'USER');
+
+INSERT INTO users (email, first_name, last_name, registered_at, password) VALUES('marco@email.com', 'Marco', 'Rossi', '2023-11-20 15:43', '{noop}prova');
+INSERT INTO users (email, first_name, last_name, registered_at, password) VALUES('enrica@email.com', 'Enrica', 'Verdi', '2023-11-20 15:43','{noop}prova');
+
+INSERT INTO users_roles (user_id, roles_id) VALUES(1, 1);
+INSERT INTO users_roles (user_id, roles_id) VALUES(1, 2);
+INSERT INTO users_roles (user_id, roles_id) VALUES(2, 2);
+
+

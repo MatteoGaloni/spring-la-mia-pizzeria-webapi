@@ -47,9 +47,17 @@
                         <li th:each="error : ${#fields.errors('price')}" th:text="${error}"></li>
                     </ul>
                 </div>
+                <div class="form-check" th:each="ingredient : ${ingredients}">
+                    <input class="form-check-input" type="checkbox"
+                           th:value="${ingredient.id}" id="|ingredient_${ingredient.id}"
+                           th:field="*{ingredients}">
+                    <label class="form-check-label" for="|ingredient_${ingredient.id}"
+                           th:text="${ingredient.name}">
+                    </label>
+                </div>
             </div>
             <div class="mb-3">
-                <button class="btn btn-primary" type="submit">Salva Nuova Pizza</button>
+                <button class="btn btn-primary" type="submit">Modifica Pizza</button>
                 <button class="btn btn-danger" type="reset">Cancel</button>
             </div>
         </form>

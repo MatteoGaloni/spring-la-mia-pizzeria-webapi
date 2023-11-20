@@ -69,4 +69,22 @@ public class PromotionController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Promotion promotion = promotionRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
+        promotionRepository.delete(promotion);
+        return "redirect:/pizzas/show/" + promotion.getPizza().getId();
+    }
+
+    /*
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Pizza pizza = pizzaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid  Id:" + id));
+        pizzaRepository.delete(pizza);
+        return "redirect:/pizzas";
+    }
+ */
 }

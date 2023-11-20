@@ -38,13 +38,16 @@
                         </li>
                     </ul>
                     <div class="card-body">
-                        <a th:href="@{pizzas/show/{id}(id=${pizza.id})}" class="card-link">Dettagli</a>
-                        <a th:href="@{pizzas/edit/{id}(id=${pizza.id})}" class="card-link">Modifica</a>
+                        <a th:href="@{pizzas/show/{id}(id=${pizza.id})}" class="btn btn-success card-link">Dettagli</a>
+                        <div sec:authorize="hasAuthority('ADMIN')" class="d-flex mt-2 me-2">
+                            <a th:href="@{pizzas/edit/{id}(id=${pizza.id})}"
+                               class="card-link btn btn-warning me-2">Modifica</a>
+                            <form method="POST" th:action="@{/pizzas/delete/{id}(id=${pizza.id})}"
+                                  onsubmit="return confirm('Sei sicuro?')">
+                                <button type="submit" class="btn btn-danger">Cancella Pizza</button>
+                            </form>
+                        </div>
                     </div>
-                    <form method="POST" th:action="@{/pizzas/delete/{id}(id=${pizza.id})}"
-                          onsubmit="return confirm('Sei sicuro?')">
-                        <button type="submit" class="btn btn-primary">Cancella Pizza</button>
-                    </form>
                 </div>
             </div>
         </div>

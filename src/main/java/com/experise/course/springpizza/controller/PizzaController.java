@@ -90,6 +90,7 @@ public class PizzaController {
     public String edit(@PathVariable Integer id, Model model) {
         Optional<Pizza> result = pizzaRepository.findById(id);
         if (result.isPresent()) {
+            model.addAttribute("ingredients", ingredientRepository.findAll());
             model.addAttribute("pizza", result.get());
             return "pizzas/edit";
         } else {
