@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,17 @@ public class PizzaService {
         } else {
             return pizzaRepository.findAll(pageable);
         }
+    }
+
+
+    public List<Pizza> advancedSearch(String name, String description, BigDecimal price) {
+        if (name != null && name.isBlank()) {
+            name = null;
+        }
+        if (description != null && description.isBlank()) {
+            description = null;
+        }
+        return pizzaRepository.findByNameContainsOrDescriptionContainsOrPriceLessThan(name, description, price);
     }
 
     public Pizza getPizzaById(Integer id) throws PizzaNotFoundException {

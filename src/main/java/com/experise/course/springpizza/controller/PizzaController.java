@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
@@ -40,24 +42,16 @@ public class PizzaController {
     }
 
 
-//    @GetMapping("/advancedSearch")
-//    public String advancedSearch(
-//            @RequestParam(value = "name", required = false) String name,
-//            @RequestParam(value = "description", required = false) String description,
-//            @RequestParam(value = "price", required = false) BigDecimal price,
-//            Model model) {
-//        List<Pizza> pizzaList;
-//
-//        if (name != null && name.isBlank()) {
-//            name = null;
-//        }
-//        if (description != null && description.isBlank()) {
-//            description = null;
-//        }
-//        pizzaList = pizzaRepository.findByNameContainsOrDescriptionContainsOrPriceLessThan(name, description, price);
-//        model.addAttribute("pizzaList", pizzaList);
-//        return "pizzas/advancedSearch";
-//    }
+    @GetMapping("/advancedSearch")
+    public String advancedSearch(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "price", required = false) BigDecimal price,
+            Model model) {
+
+        model.addAttribute("pizzaList", pizzaService.advancedSearch(name, description, price));
+        return "pizzas/advancedSearch";
+    }
 
     @GetMapping("/create")
     public String create(Model model) {
