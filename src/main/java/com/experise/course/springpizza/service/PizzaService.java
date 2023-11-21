@@ -5,6 +5,8 @@ import com.experise.course.springpizza.model.Pizza;
 import com.experise.course.springpizza.repository.IngredientRepository;
 import com.experise.course.springpizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,20 +27,29 @@ public class PizzaService {
         }
     }
 
-    public Pizza getPizzaById(Integer id) {
+    public Page<Pizza> getPizzaList(String search, Pageable pageable) {
+        if (search != null && !search.isBlank()) {
+            return pizzaRepository.findByNameContainsAllIgnoreCase(search, pageable);
+        } else {
+            return pizzaRepository.findAll(pageable);
+        }
+    }
+
+    public Pizza getPizzaById(Integer id) throws PizzaNotFoundException {
         Optional<Pizza> result = pizzaRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } else {
-            throw new PizzaNotFoundException("Pizza with id" + id + "not found");
+            throw new PizzaNotFoundException("Pizza with id " + id + " not found");
         }
     }
 
     public Pizza createPizza(Pizza pizza) {
+        pizza.setId(null);
         return pizzaRepository.save(pizza);
     }
 
-    public Pizza editPizza(Pizza pizza) {
+    public Pizza editPizza(Pizza pizza) throws PizzaNotFoundException {
         Optional<Pizza> result = pizzaRepository.findById(pizza.getId());
         if (result.isPresent()) {
             pizza.setCreatedAt(result.get().getCreatedAt());
