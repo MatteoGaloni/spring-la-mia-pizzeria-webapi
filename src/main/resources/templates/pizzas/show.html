@@ -43,8 +43,8 @@
                             <th>Nome</th>
                             <th>Data di inizio</th>
                             <th>Data di fine</th>
-                            <th></th>
-                            <th></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,9 +52,10 @@
                             <td th:text="*{title}"></td>
                             <td th:text="*{startDate}"></td>
                             <td th:text="*{endDate}"></td>
-                            <td><a class="btn btn-primary" th:href="@{/promotions/edit/{id}(id=*{id})}">Modifica</a>
+                            <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-primary"
+                                                                         th:href="@{/promotions/edit/{id}(id=*{id})}">Modifica</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <form method="POST" th:action="@{/promotions/delete/{id}(id=${promotion.id})}"
                                       onsubmit="return confirm('Sei sicuro?')">
                                     <button type="submit" class="btn btn-danger">Cancella Promozione</button>
@@ -63,7 +64,8 @@
                         </tr>
                         </tbody>
                     </table>
-                    <a th:href="@{/promotions/create(pizzaId=${pizza.id})}" class="btn btn-primary">Aggiungi una nuova
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/promotions/create(pizzaId=${pizza.id})}"
+                       class="btn btn-primary">Aggiungi una nuova
                         offerta
                     </a>
                 </div>

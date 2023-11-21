@@ -1,5 +1,6 @@
 package com.experise.course.springpizza.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -38,9 +39,11 @@ public class Pizza {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "pizza", orphanRemoval = true)
+    @JsonIgnore
     private List<Promotion> promotions = new ArrayList<>();
 
     @ManyToMany
+    @JsonIgnore
     private List<Ingredient> ingredients = new ArrayList<>();
     //    *******************************************************+
 
