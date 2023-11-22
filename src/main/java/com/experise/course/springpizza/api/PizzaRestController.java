@@ -20,7 +20,7 @@ public class PizzaRestController {
     PizzaService pizzaService;
 
     @GetMapping
-    public Page<Pizza> index(@PageableDefault(page = 0, size = 4) Pageable pageable, @RequestParam(value = "search", required = false) String search) {
+    public Page<Pizza> index(@PageableDefault(page = 0, size = 20) Pageable pageable, @RequestParam(value = "search", required = false) String search) {
         return pizzaService.getPizzaList(search, pageable);
     }
 

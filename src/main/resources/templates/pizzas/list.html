@@ -19,9 +19,10 @@
                 <button type="submit" class="btn btn-primary">Cerca</button>
             </div>
         </form>
-        <div class="row row-cols-md-2 row-cols-lg-3 justify-content-center">
-            <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}" class="my-2 col">
-                <div class="card h-100" style="width: 18rem;">
+        <div class="row row-cols-lg-2">
+            <div th:if="${pizzaList != null}" th:each="pizza : ${pizzaList}"
+                 class="my-2 col d-flex justify-content-center">
+                <div class="card h-100" style="width: 30rem;">
                     <img th:src="${pizza.img}" class="card-img-top" alt="...">
 
                     <div class="card-body">

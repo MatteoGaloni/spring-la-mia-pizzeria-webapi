@@ -13,8 +13,7 @@
                 <img th:src="${pizza.img}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 th:text="${pizza.name}" class="card-title"></h5>
-                    <p th:text="${pizza.description}" class="card-text">Some quick example text to build on the card
-                        title and make up the bulk of the card's content.</p>
+                    <p th:text="${pizza.description}" class="card-text"></p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li th:if="${pizza.price != null}" th:text="${pizza.price} + '€'" class="list-group-item">An
